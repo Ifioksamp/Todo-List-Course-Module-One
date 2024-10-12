@@ -1,0 +1,16 @@
+{% extends 'todo/base.html' %}
+
+{% block title %} Signup Success {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card text-center shadow" style="width: 28rem;">
+        <div class="card-body">
+            <h2 class="card-title text-success mb-4">Signup Successful!</h2>
+            <p class="card-text">Thank you for signing up. Your account has been created successfully!</p>
+            <p class="card-text">Please click the button below to log in to your new account.</p>
+            <a href="{% url 'login' %}" class="btn btn-primary mt-4">Go to Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+<h1 class="text-center">YOUR DAILY PLANNER</h1>
+
+<div class="card">
+    <div class="card-header">
+        Todo Items
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="">
+                <tr>
+                    <th scope="col">Task</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                <tr>
+                    <td>{{ todo.title|title }}</td>
+                    <td>{{ todo.description }}</td>
+                    <td>{{ todo.created_at }}</td>
+                    <td class="text-center">
+                        {% if todo.status == 'Pending' %}
+                        <span class="badge bg-warning">{{ todo.status }}</span>
+                        {% elif todo.status == 'In Progress' %}
+                        <span class="badge bg-primary">{{ todo.status }}</span>
+                        {% elif todo.status == 'Completed' %}
+                        <span class="badge bg-success">{{ todo.status }}</span>
+                        {% endif %}
+                    </td>
+                    {% if request.user == todo.user.created_by %}
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'update_todo' todo.id %}">Update</a> |
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'delete_todo' todo.id %}">Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">No todos available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+{% if request.user.is_authenticated %}
+<div class="mt-4">
+    <a href="{% url 'add_todo' %}" class="btn btn-success">Add New Todo</a>
+</div>
+{% endif %}
+{% endblock %}

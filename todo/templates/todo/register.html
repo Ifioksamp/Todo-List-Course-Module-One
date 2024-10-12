@@ -1,0 +1,26 @@
+{% extends 'todo/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header text-center">
+        Sign Up
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
